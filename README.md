@@ -13,6 +13,7 @@ Features:
 - Buttons below the comments box to auto-type common 1-star rejection reasons
 - Percent of total reviewed candidates process by Niantic displayed at the bottom of the page
 - Add translate buttons for title and description
+- 添加了常用的国内地图，腾讯地图，百度地图和高德地图
 
 Features implemented by [hedger](https://gitlab.com/hedger/opr-tools):
 - Moved overall portal rating to same group as other ratings
@@ -20,4 +21,5 @@ Features implemented by [hedger](https://gitlab.com/hedger/opr-tools):
 - Made "Nearby portals" list and map scrollable with mouse wheel
 
 
-Download: https://gitlab.com/1110101/opr-tools/raw/master/opr-tools.user.js
+
+Download: https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
