@@ -1,16 +1,16 @@
 // ==UserScript==
-// @name         OPR tools
+// @name         OPR tools China
 // @namespace    https://opr.ingress.com/recon
-// @version      0.9.18
-// @description  Added links to Intel and OSM and disabled autoscroll.
-// @author       1110101, https://gitlab.com/1110101/opr-tools/graphs/master
+// @version      0.10.1
+// @description  Added links to Intel and OSM and disabled autoscroll, also maps for China
+// @author       darcy https://github.com/hot123tea123/opr-tools-china, forked from 1110101, https://gitlab.com/1110101/opr-tools/graphs/master
 // @match        https://opr.ingress.com/recon
 // @grant        unsafeWindow
-// @downloadURL  https://gitlab.com/1110101/opr-tools/raw/master/opr-tools.user.js
+// @downloadURL  https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
 
 // ==/UserScript==
 
-// source https://gitlab.com/1110101/opr-tools
+// source https://github.com/hot123tea123/opr-tools-china
 // merge-requests welcome
 
 /*
@@ -211,12 +211,15 @@ opacity: 1;
             // adding map buttons
             const mapButtons = [
                 "<a class='button btn btn-default' target='intel' href='https://www.ingress.com/intel?ll=" + pageData.lat + "," + pageData.lng + "&z=17'>Intel</a>",
-                "<a class='button btn btn-default' target='osm' href='https://www.openstreetmap.org/?mlat=" + pageData.lat + "&mlon=" + pageData.lng + "&zoom=16'>OSM</a>",
-                "<a class='button btn btn-default' target='bing' href='https://bing.com/maps/default.aspx?cp=" + pageData.lat + "~" + pageData.lng + "&lvl=16&style=a'>bing</a>"
+		"<a class='button btn btn-default' target='tencent' href='http://apis.map.qq.com/uri/v1/marker?marker=coord:" + pageData.lat + "," + pageData.lng + ";title:" + pageData.title +";addr:" + pageData.lat + ", " + pageData.lng + "&coord_type=1&referer=opr'>腾讯地图</a>",
+                "<a class='button btn btn-default' target='baidu' href='http://api.map.baidu.com/marker?location=" + pageData.lat + "," + pageData.lng + "&coord_type=wgs84&title=" + pageData.title + "&content=" + pageData.lat + "," + pageData.lng + "&output=html&src=opr'>百度地图</a>",
+                "<a class='button btn btn-default' target='gaode' href='http://uri.amap.com/marker?position=" + pageData.lng + "," + pageData.lat + "&name= " + pageData.title + "&src=opr&coordinate=wgs84'>>高德地图</a>"
             ];
 
             // more map buttons in a dropdown menu
             const mapDropdown = [
+		"<li><a target='osm' href='https://www.openstreetmap.org/?mlat=" + pageData.lat + "&mlon=" + pageData.lng + "&zoom=16'>OSM</a></li>",
+		"<li><a target='bing' href='https://bing.com/maps/default.aspx?cp=" + pageData.lat + "~" + pageData.lng + "&lvl=16&style=a'>bing</a><li>",
                 "<li><a target='heremaps' href='https://wego.here.com/?map=" + pageData.lat + "," + pageData.lng + ",17,satellite'>HERE maps</a></li>",
                 "<li><a target='wikimapia' href='http://wikimapia.org/#lat=" + pageData.lat + "&lon=" + pageData.lng + "&z=16'>Wikimapia</a></li>",
                 "<li><a targeT='zoomearth' href='https://zoom.earth/#" + pageData.lat + "," + pageData.lng + ",18z,sat'>Zoom Earth</a></li>",
