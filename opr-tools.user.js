@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OPR tools China
 // @namespace    https://opr.ingress.com/recon
-// @version      0.10.1
+// @version      0.10.2
 // @description  Added links to Intel and OSM and disabled autoscroll, also maps for China
 // @author       darcy https://github.com/hot123tea123/opr-tools-china, forked from 1110101, https://gitlab.com/1110101/opr-tools/graphs/master
 // @match        https://opr.ingress.com/recon
