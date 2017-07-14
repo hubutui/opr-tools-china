@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OPR tools China
 // @namespace    https://opr.ingress.com/recon
-// @version      0.10.2
+// @version      0.10.3
 // @description  Added links to Intel and OSM and disabled autoscroll, also maps for China
 // @author       darcy https://github.com/hot123tea123/opr-tools-china, forked from 1110101, https://gitlab.com/1110101/opr-tools/graphs/master
 // @match        https://opr.ingress.com/recon
@@ -211,9 +211,9 @@ opacity: 1;
             // adding map buttons
             const mapButtons = [
                 "<a class='button btn btn-default' target='intel' href='https://www.ingress.com/intel?ll=" + pageData.lat + "," + pageData.lng + "&z=17'>Intel</a>",
-		"<a class='button btn btn-default' target='tencent' href='http://apis.map.qq.com/uri/v1/marker?marker=coord:" + pageData.lat + "," + pageData.lng + ";title:" + pageData.title +";addr:" + pageData.lat + ", " + pageData.lng + "&coord_type=1&referer=opr'>腾讯地图</a>",
-                "<a class='button btn btn-default' target='baidu' href='http://api.map.baidu.com/marker?location=" + pageData.lat + "," + pageData.lng + "&coord_type=wgs84&title=" + pageData.title + "&content=" + pageData.lat + "," + pageData.lng + "&output=html&src=opr'>百度地图</a>",
-                "<a class='button btn btn-default' target='gaode' href='http://uri.amap.com/marker?position=" + pageData.lng + "," + pageData.lat + "&name= " + pageData.title + "&src=opr&coordinate=wgs84'>高德地图</a>"
+	        "<a class='button btn btn-default' target='gaode' href='http://uri.amap.com/marker?position=" + pageData.lng + "," + pageData.lat + "&name= " + pageData.title + "&src=opr&coordinate=wgs84'>高德</a>",
+		"<a class='button btn btn-default' target='tencent' href='http://apis.map.qq.com/uri/v1/marker?marker=coord:" + pageData.lng + "," + pageData.lat + ";title:" + pageData.title +";addr:" + pageData.lat + ", " + pageData.lng + "&coord_type=1&referer=opr'>腾讯</a>",
+                "<a class='button btn btn-default' target='baidu' href='http://api.map.baidu.com/marker?location=" + pageData.lat + "," + pageData.lng + "&coord_type=wgs84&title=" + pageData.title + "&content=" + pageData.lat + "," + pageData.lng + "&output=html&src=opr'>百度</a>"
             ];
 
             // more map buttons in a dropdown menu
