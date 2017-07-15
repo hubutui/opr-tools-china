@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         OPR tools China
 // @namespace    https://opr.ingress.com/recon
-// @version      0.10.3
+// @version      0.10.4
 // @description  Added links to Intel and OSM and disabled autoscroll, also maps for China
 // @author       darcy https://github.com/hot123tea123/opr-tools-china, forked from 1110101, https://gitlab.com/1110101/opr-tools/graphs/master
 // @match        https://opr.ingress.com/recon
 // @grant        unsafeWindow
 // @downloadURL  https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
+// @require https://github.com/googollee/eviltransform/raw/master/javascript/transform.js
 
 // ==/UserScript==
 
@@ -207,12 +208,15 @@ opacity: 1;
 }
 `);
 
+		// GPS 坐标转换为 GCJ02 坐标，仅用于腾讯地图，因为腾讯地图的 URI API 并不能将 GPS 坐标转换为 GCJ02 坐标
+		// 返回的 GCJ02 经度为 pos.lng, 纬度为 pos.lat
+		var pos = eviltransform.wgs2gcj(pageData.lat, pageData.lng);
 
             // adding map buttons
             const mapButtons = [
                 "<a class='button btn btn-default' target='intel' href='https://www.ingress.com/intel?ll=" + pageData.lat + "," + pageData.lng + "&z=17'>Intel</a>",
 	        "<a class='button btn btn-default' target='gaode' href='http://uri.amap.com/marker?position=" + pageData.lng + "," + pageData.lat + "&name= " + pageData.title + "&src=opr&coordinate=wgs84'>高德</a>",
-		"<a class='button btn btn-default' target='tencent' href='http://apis.map.qq.com/uri/v1/marker?marker=coord:" + pageData.lng + "," + pageData.lat + ";title:" + pageData.title +";addr:" + pageData.lat + ", " + pageData.lng + "&coord_type=1&referer=opr'>腾讯</a>",
+		"<a class='button btn btn-default' target='tencent' href='http://apis.map.qq.com/uri/v1/marker?marker=coord:" + pos.lat + "," + pos.lng + ";title:" + pageData.title +";addr:" + pageData.lat + ", " + pageData.lng + "&referer=opr'>腾讯</a>",
                 "<a class='button btn btn-default' target='baidu' href='http://api.map.baidu.com/marker?location=" + pageData.lat + "," + pageData.lng + "&coord_type=wgs84&title=" + pageData.title + "&content=" + pageData.lat + "," + pageData.lng + "&output=html&src=opr'>百度</a>"
             ];
 
