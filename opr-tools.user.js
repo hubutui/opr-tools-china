@@ -1,16 +1,19 @@
 // ==UserScript==
 // @name         OPR tools China
-// @namespace    https://opr.ingress.com/recon
-// @version      0.10.4
-// @description  Added links to Intel and OSM and disabled autoscroll, also maps for China
-// @author       darcy https://github.com/hot123tea123/opr-tools-china, forked from 1110101, https://gitlab.com/1110101/opr-tools/graphs/master
+// @version      0.10.5
+// @description  Added links to Intel and OSM and disabled autoscroll.
+// @author       1110101, https://gitlab.com/1110101/opr-tools/graphs/master; darcy https://github.com/hot123tea123/opr-tools-china
 // @match        https://opr.ingress.com/recon
 // @grant        unsafeWindow
+// @homepageURL  https://github.com/hot123tea123/opr-tools-china
 // @downloadURL  https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
-// @require https://github.com/googollee/eviltransform/raw/master/javascript/transform.js
+// @updateURL    https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
+// @supportURL   null
+// @require      https://github.com/googollee/eviltransform/raw/master/javascript/transform.js
 
 // ==/UserScript==
 
+// upstream source https://gitlab.com/1110101/opr-tools
 // source https://github.com/hot123tea123/opr-tools-china
 // merge-requests welcome
 
@@ -208,22 +211,24 @@ opacity: 1;
 }
 `);
 
-		// GPS 坐标转换为 GCJ02 坐标，仅用于腾讯地图，因为腾讯地图的 URI API 并不能将 GPS 坐标转换为 GCJ02 坐标
-		// 返回的 GCJ02 经度为 pos.lng, 纬度为 pos.lat
-		var pos = eviltransform.wgs2gcj(pageData.lat, pageData.lng);
+	// GPS to GCJ02
+	// 仅用于腾讯地图，因为腾讯地图的 URI API 暂时不能用
+	// 返回值 pos 中，pos.lat 为纬度，pos.lng 为经度
+	var pos = eviltransform.wgs2gcj(pageData.lat, pageData.lng);
+
 
             // adding map buttons
             const mapButtons = [
                 "<a class='button btn btn-default' target='intel' href='https://www.ingress.com/intel?ll=" + pageData.lat + "," + pageData.lng + "&z=17'>Intel</a>",
-	        "<a class='button btn btn-default' target='gaode' href='http://uri.amap.com/marker?position=" + pageData.lng + "," + pageData.lat + "&name= " + pageData.title + "&src=opr&coordinate=wgs84'>高德</a>",
+		"<a class='button btn btn-default' target='gaode' href='http://uri.amap.com/marker?position=" + pageData.lng + "," + pageData.lat + "&name= " + pageData.title + "&src=opr&coordinate=wgs84'>高德</a>",
 		"<a class='button btn btn-default' target='tencent' href='http://apis.map.qq.com/uri/v1/marker?marker=coord:" + pos.lat + "," + pos.lng + ";title:" + pageData.title +";addr:" + pageData.lat + ", " + pageData.lng + "&referer=opr'>腾讯</a>",
-                "<a class='button btn btn-default' target='baidu' href='http://api.map.baidu.com/marker?location=" + pageData.lat + "," + pageData.lng + "&coord_type=wgs84&title=" + pageData.title + "&content=" + pageData.lat + "," + pageData.lng + "&output=html&src=opr'>百度</a>"
+		"<a class='button btn btn-default' target='baidu' href='http://api.map.baidu.com/marker?location=" + pageData.lat + "," + pageData.lng + "&coord_type=wgs84&title=" + pageData.title + "&content=" + pageData.lat + "," + pageData.lng + "&output=html&src=opr'>百度</a>",
+                "<a class='button btn btn-default' target='osm' href='https://www.openstreetmap.org/?mlat=" + pageData.lat + "&mlon=" + pageData.lng + "&zoom=16'>OSM</a>",
+                "<a class='button btn btn-default' target='bing' href='https://bing.com/maps/default.aspx?cp=" + pageData.lat + "~" + pageData.lng + "&lvl=16&style=a'>bing</a>"
             ];
 
             // more map buttons in a dropdown menu
             const mapDropdown = [
-		"<li><a target='osm' href='https://www.openstreetmap.org/?mlat=" + pageData.lat + "&mlon=" + pageData.lng + "&zoom=16'>OSM</a></li>",
-		"<li><a target='bing' href='https://bing.com/maps/default.aspx?cp=" + pageData.lat + "~" + pageData.lng + "&lvl=16&style=a'>bing</a><li>",
                 "<li><a target='heremaps' href='https://wego.here.com/?map=" + pageData.lat + "," + pageData.lng + ",17,satellite'>HERE maps</a></li>",
                 "<li><a target='wikimapia' href='http://wikimapia.org/#lat=" + pageData.lat + "&lon=" + pageData.lng + "&z=16'>Wikimapia</a></li>",
                 "<li><a targeT='zoomearth' href='https://zoom.earth/#" + pageData.lat + "," + pageData.lng + ",18z,sat'>Zoom Earth</a></li>",
@@ -232,16 +237,19 @@ opacity: 1;
 
                 // national maps
                 "<li><a target='swissgeo' href='http://map.geo.admin.ch/?swisssearch=" + pageData.lat + "," + pageData.lng + "'>CH - Swiss Geo Map</a></li>",
+                "<li><a target='mapycz' href='https://mapy.cz/zakladni?x=" + pageData.lng + "&y=" + pageData.lat +
+                "&z=17&base=ophoto&source=coor&id=" + pageData.lng + "%2C" + pageData.lat + "&q=" + pageData.lng + "%20" + pageData.lat + "'>CZ-mapy.cz (ortofoto)</a></li>",
+                "<li><a target='mapycz' href='https://mapy.cz/zakladni?x=" + pageData.lng + "&y=" + pageData.lat +
+                "&z=17&base=ophoto&m3d=1&height=180&yaw=-279.39&pitch=-40.7&source=coor&id=" + pageData.lng + "%2C" + pageData.lat + "&q=" + pageData.lng + "%20" + pageData.lat + "'>CZ-mapy.cz (orto+3D)</a></li>",
                 "<li><a target='kompass' href='http://maps.kompass.de/#lat=" + pageData.lat + "&lon=" + pageData.lng + "&z=17'>DE - Kompass.maps</a></li>",
                 "<li><a target='bayernatlas' href='https://geoportal.bayern.de/bayernatlas/index.html?X=" + pageData.lat + "&Y=" + pageData.lng + "&zoom=14&lang=de&bgLayer=luftbild&topic=ba&catalogNodes=122'>DE - BayernAtlas</a></li>",
+                "<li><a target='eniro' href='http://opr.pegel.dk/?17/" + pageData.lat + "/" + pageData.lng + "'>DK - SDFE Orthophotos</a></li>",
+                "<li><a target='kakao' href='http://map.daum.net/link/map/" + pageData.lat + "," + pageData.lng + "'>KR - Kakao map</a></li>",
+	            "<li><a target='naver' href='http://map.naver.com/?menu=location&lat=" + pageData.lat + "&lng=" + pageData.lng + "&dLevel=14&title=CandidatePortalLocation"+"'>KR - Naver map</a></li>",
+
                 "<li><a target='yandex' href='https://maps.yandex.ru/?text=" + pageData.lat + "," + pageData.lng + "'>RU - Yandex</a></li>",
                 "<li><a target='hitta' href='https://www.hitta.se/kartan!~" + pageData.lat + "," + pageData.lng + ",18z/tileLayer!l=1'>SE - Hitta.se</a></li>",
-                "<li><a target='eniro' href='https://kartor.eniro.se/?c=" + pageData.lat + "," + pageData.lng + "&z=17&l=nautical'>SE - Eniro Sjökort</a></li>",
-                "<li><a target='eniro' href='http://opr.pegel.dk/?17/" + pageData.lat + "/" + pageData.lng + "'>DK - SDFE Orthophotos</a></li>",
-                "<li><a target='mapycz' href='https://mapy.cz/zakladni?x=" + pageData.lng + "&y=" + pageData.lat + "&z=17&base=ophoto&source=coor&id=" + pageData.lng + "%2C" + pageData.lat + "&q=" + pageData.lng + "%20" + pageData.lat + "'>CZ-mapy.cz (ortofoto)</a></li>",
-				"<li><a target='mapycz' href='https://mapy.cz/zakladni?x=" + pageData.lng + "&y=" + pageData.lat + "&z=17&base=ophoto&m3d=1&height=180&yaw=-279.39&pitch=-40.7&source=coor&id=" + pageData.lng + "%2C" + pageData.lat + "&q=" + pageData.lng + "%20" + pageData.lat + "'>CZ-mapy.cz (orto+3D)</a></li>",
-                "<li><a target='eniro' href='http://opr.pegel.dk/?17/" + pageData.lat + "/" + pageData.lng + "'>DK - SDFE Orthophotos</a></li>",
-                "<li><a target='kakao' href='http://map.daum.net/link/map/" + pageData.lat + "," + pageData.lng + "'>KR - Kakao map</a></li>"
+                "<li><a target='eniro' href='https://kartor.eniro.se/?c=" + pageData.lat + "," + pageData.lng + "&z=17&l=nautical'>SE - Eniro Sjökort</a></li>"
             ];
 
             descDiv.insertAdjacentHTML("beforeEnd", "<div><div class='btn-group'>" + mapButtons.join("") +
@@ -283,22 +291,22 @@ opacity: 1;
                         let text;
                         switch (source.id) {
                             case "photo":
-                                text = "low quality photo";
+                                text = "Low quality photo";
                                 break;
                             case "private":
-                                text = "private residential property";
+                                text = "Private residential property";
                                 break;
                             case "duplicate":
-                                text = "duplicate of previously reviewed portal candidate";
+                                text = "Duplicate of previously reviewed portal candidate";
                                 break;
                             case "school":
-                                text = "located on primary or secondary school grounds";
+                                text = "Located on primary or secondary school grounds";
                                 break;
                             case "person":
-                                text = "picture contains one or more people";
+                                text = "Picture contains one or more people";
                                 break;
                             case "perm":
-                                text = "portal candidate is seasonal or temporary";
+                                text = "Portal candidate is seasonal or temporary";
                                 break;
                             case "location":
                                 text = "Portal candidate's location is not on object";
@@ -324,9 +332,11 @@ opacity: 1;
             let percent = (accepted + rejected) / reviewed;
             percent = Math.round(percent * 1000) / 10;
             w.document.querySelector("#player_stats:not(.visible-xs) div p:last-child")
-                .insertAdjacentHTML("afterEnd", '<br><p><span class="glyphicon glyphicon-info-sign ingress-gray pull-left"></span><span style="margin-left: 5px" class="ingress-mid-blue pull-left">Percent Processed</span> <span class="gold pull-right">' + percent + '%</span></p>');
+                .insertAdjacentHTML("afterEnd", '<br><p><span class="glyphicon glyphicon-info-sign ingress-gray pull-left"></span>' +
+                                    '<span style="margin-left: 5px;" class="ingress-mid-blue pull-left">Percent Processed</span> <span class="gold pull-right">' + percent + '%</span></p>');
 
-            w.document.querySelector("#player_stats:not(.visible-xs) div p:last-child").insertAdjacentHTML("afterEnd", '<br><p><input type="text" value="'+reviewed+' / '+accepted+' / '+rejected+' / '+percent+'%"/></p>');
+            w.document.querySelector("#player_stats:not(.visible-xs) div p:last-child").insertAdjacentHTML("afterEnd", '<br><p><input style="width: 99%;" type="text" ' +
+                                                                                                           'value="'+reviewed+' / '+ (accepted + rejected ) + ' (' +accepted+  '/'+rejected+') / '+percent+'%"/></p>');
 
             // kill autoscroll
             ansController.goToLocation = null;
@@ -433,6 +443,114 @@ opacity: 1;
                     f.click();
                 }, 500);
             } catch (err) {}
+
+
+            // keyboard navigation
+            // keys 1-5 to vote
+            // space/enter to confirm dialogs
+            // esc or numpad "/" to reset selector
+            // Numpad + - to navigate
+
+            let currentSelectable = 0;
+            let maxItems = 6;
+
+            function highlight() {
+                w.document.querySelectorAll('.btn-group').forEach(exportFunction((element) => { element.style.border = 'none'; }, w));
+                if(currentSelectable < maxItems) {
+                    w.document.querySelectorAll('.btn-group')[currentSelectable+1].style.border = cloneInto('1px dashed #ebbc4a', w);
+                }
+            }
+
+            addEventListener('keydown', (event) => {
+
+                /*
+				keycodes:
+
+				8: Backspace
+				9: TAB
+				13: Enter
+                16: Shift
+				27: Escape
+				32: Space
+				107: NUMPAD +
+				109: NUMPAD -
+				111: NUMPAD /
+
+				49 - 53:  Keys 1-5
+				97 - 101: NUMPAD 1-5
+
+				 */
+
+                if(event.keyCode >= 49 && event.keyCode <= 53)
+                    numkey = event.keyCode - 48;
+                else if(event.keyCode >= 97 && event.keyCode <= 101)
+                    numkey = event.keyCode - 96;
+                else
+                    numkey = null;
+
+                if(w.document.querySelector("input[type=text]:focus") || w.document.querySelector("textarea:focus")) {
+                    return;
+                }
+                // "analyze next" button
+                else if((event.keyCode === 13 ||event.keyCode === 32) && w.document.querySelector('a.button[href="/recon"]')) {
+                    w.document.location.href='/recon';
+                    event.preventDefault();
+                } // submit low quality rating
+                else if((event.keyCode === 13 ||event.keyCode === 32) && w.document.querySelector('[ng-click="answerCtrl2.confirmLowQuality()"]')) {
+                    w.document.querySelector('[ng-click="answerCtrl2.confirmLowQuality()"]').click();
+                    currentSelectable = 0;
+                    event.preventDefault();
+
+                } // submit duplicate
+                else if((event.keyCode === 13 ||event.keyCode === 32) && w.document.querySelector('[ng-click="answerCtrl2.confirmDuplicate()"]')) {
+                    w.document.querySelector('[ng-click="answerCtrl2.confirmDuplicate()"]').click();
+                    currentSelectable = 0;
+                    event.preventDefault();
+
+                } // submit normal rating
+                else if((event.keyCode === 13 ||event.keyCode === 32) && currentSelectable === maxItems) {
+                    w.document.querySelector('[ng-click="answerCtrl.submitForm()"]').click();
+                    event.preventDefault();
+
+                } // close duplicate dialog
+                else if((event.keyCode === 27 || event.keyCode === 111) && w.document.querySelector('[ng-click="answerCtrl2.resetDuplicate()"]')) {
+                    w.document.querySelector('[ng-click="answerCtrl2.resetDuplicate()"]').click();
+                    currentSelectable = 0;
+                    event.preventDefault();
+
+                } // close low quality ration dialog
+                else if((event.keyCode === 27 || event.keyCode === 111) && w.document.querySelector('[ng-click="answerCtrl2.resetLowQuality()"]')) {
+                    w.document.querySelector('[ng-click="answerCtrl2.resetLowQuality()"]').click();
+                    currentSelectable = 0;
+                    event.preventDefault();
+                }
+                // return to first selection (should this be a portal)
+                else if(event.keyCode === 27 || event.keyCode === 111) {
+                    currentSelectable = 0;
+                }
+                // select next rating
+                else if((event.keyCode === 107 || event.keyCode === 9) && currentSelectable < maxItems) {
+                    currentSelectable++;
+                    event.preventDefault();
+                }
+                // select previous rating
+                else if((event.keyCode === 109 || event.keyCode === 16 || event.keyCode === 8) && currentSelectable > 0) {
+                    currentSelectable--;
+                    event.preventDefault();
+
+                }
+                else if(numkey === null || currentSelectable >= maxItems) {
+                    return;
+                }
+                // rating 1-5
+                else {
+                    w.document.querySelectorAll('.btn-group')[currentSelectable+1].querySelectorAll('button.button-star')[numkey-1].click();
+                    currentSelectable++;
+                }
+                highlight();
+            });
+
+            highlight();
 
             watchAdded = true;
         }
