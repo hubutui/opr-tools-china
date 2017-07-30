@@ -22,4 +22,4 @@ Features implemented by [hedger](https://gitlab.com/hedger/opr-tools):
 
 
 
-Download: https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
+Download: https://github.com/hubutui/opr-tools-china/raw/master/opr-tools.user.js

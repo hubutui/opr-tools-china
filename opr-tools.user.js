@@ -2,19 +2,19 @@
 // @name         OPR tools China
 // @version      0.10.5
 // @description  Added links to Intel and OSM and disabled autoscroll.
-// @author       1110101, https://gitlab.com/1110101/opr-tools/graphs/master; darcy https://github.com/hot123tea123/opr-tools-china
+// @author       1110101, https://gitlab.com/1110101/opr-tools/graphs/master; darcy https://github.com/hubutui/opr-tools-china
 // @match        https://opr.ingress.com/recon
 // @grant        unsafeWindow
-// @homepageURL  https://github.com/hot123tea123/opr-tools-china
-// @downloadURL  https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
-// @updateURL    https://github.com/hot123tea123/opr-tools-china/raw/master/opr-tools.user.js
+// @homepageURL  https://github.com/hubutui/opr-tools-china
+// @downloadURL  https://github.com/hubutui/opr-tools-china/raw/master/opr-tools.user.js
+// @updateURL    https://github.com/hubutui/opr-tools-china/raw/master/opr-tools.user.js
 // @supportURL   null
 // @require      https://github.com/googollee/eviltransform/raw/master/javascript/transform.js
 
 // ==/UserScript==
 
 // upstream source https://gitlab.com/1110101/opr-tools
-// source https://github.com/hot123tea123/opr-tools-china
+// source https://github.com/hubutui/opr-tools-china
 // merge-requests welcome
 
 /*
